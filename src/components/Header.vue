@@ -1,5 +1,5 @@
 <template>
-  <header class="header d-flex">
+  <header class="header d-flex line-bottom">
     <div class="header__items align-item-center">
       <div class="header__left-side">
         <div class="header__logo">
