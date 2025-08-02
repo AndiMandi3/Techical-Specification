@@ -9,8 +9,8 @@
       <div class="header__right-side">
         <nav class="header__nav d-flex">
           <ul>
-            <li><a href="#">СРАВНЕНИЕ</a></li>
-            <li><a href="#">Личный кабинет <img src="../assets/img/LK.svg"></a></li>
+            <li>СРАВНЕНИЕ</li>
+            <li>Личный кабинет <img src="../assets/img/LK.svg"></li>
           </ul>
         </nav>
       </div>
