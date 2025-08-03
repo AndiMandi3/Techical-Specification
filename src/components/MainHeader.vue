@@ -17,3 +17,38 @@
     </div>
   </header>
 </template>
+
+<style scoped lang="scss">
+.header {
+  font-family: "Roboto Black", sans-serif;
+  padding: 50px 165px;
+
+  &__logo-text {
+    font-size: 16px;
+  }
+
+  &__items {
+    display: inherit;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  &__nav {
+    flex-direction: row;
+
+    ul {
+      display: inherit;
+      align-items: center;
+      gap: 48px;
+    }
+
+    li {
+      display: inherit;
+      font-size: 12px;
+      gap: 20px;
+      align-items: center;
+    }
+  }
+}
+
+</style>

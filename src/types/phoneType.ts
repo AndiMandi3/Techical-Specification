@@ -1,4 +1,4 @@
-type phoneType = {
+export type phoneType = {
     id: number
     name: string,
     img: string,
@@ -13,5 +13,3 @@ type phoneType = {
     wirelessCharging: boolean,
     price: number
 }
-
-export type { phoneType }
