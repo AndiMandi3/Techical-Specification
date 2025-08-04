@@ -1,0 +1,1 @@
+export const BOOLEAN_SPEC_KEYS = ["nfc", "esim", "wirelessCharging"]

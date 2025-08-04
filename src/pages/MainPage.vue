@@ -1,21 +1,21 @@
 <script setup lang="ts">
 import MainHeader from "../components/MainHeader.vue"
 import SmartphonesHeader from "../components/SmartphonesHeader.vue"
-import SmartphoneTable from "../components/SmartphoneTable.vue";
+import SmartphoneTable from "../components/SmartphoneTable.vue"
+import { SPECIFICATION_LABELS } from "../consts/specificationLabels"
+import { BOOLEAN_SPEC_KEYS } from "../consts/booleanSpecKeys"
 
-import {onMounted, ref, computed} from "vue"
-import type {phoneType} from "../types/phoneType.ts"
+
+import { onMounted, ref, computed } from "vue"
+import type { phoneType } from "../types/phoneType.ts"
 
 const phones = ref<phoneType[]>([])
-const itemOfPhone = ref<number>(3)
-const showOnlyDiffs = ref<boolean>(false)
+const itemOfPhone = ref(3)
+const showOnlyDiffs = ref(false)
 
-const visiblePhones = computed(() => {
-  return phones.value.slice(0, itemOfPhone.value)
-})
-
-const slicedCount = computed(() => {
-  return phones.value.slice(1)
+const countsPhone = computed(() => {
+  const n = phones.value.length
+  return Array.from({ length: n - 1 }, (_, i) => i + 2)
 })
 
 const includesSpecKeys = computed(() => {
@@ -29,7 +29,13 @@ function setItemsOfPhone(count: number): void {
   itemOfPhone.value = count
 }
 
-const booleanSpecKeys = ["nfc", "esim", "wirelessCharging"]
+const visiblePhones = computed(() => {
+  return phones.value.slice(0, itemOfPhone.value)
+})
+
+const remainingPhones = computed(() =>
+    phones.value.filter(phone => !visiblePhones.value.some(vp => vp.id === phone.id))
+)
 
 async function loadPhones(): Promise<void> {
   try {
@@ -41,21 +47,7 @@ async function loadPhones(): Promise<void> {
   }
 }
 
-const specificationLabels: Record<string, string> = {
-  manufacture: "Производитель",
-  release: "Год релиза",
-  screenSize: "Диагональ экрана (дюйм)",
-  country: "Страна-производитель",
-  memorySize: "Объём памяти",
-  fps: "Частота обновления экрана",
-  nfc: "NFC",
-  esim: "Поддержка eSIM",
-  wirelessCharging: "Поддержка беспроводной зарядки",
-  price: "Стоимость",
-}
-
-const specKeys = Object.keys(specificationLabels)
-console.log(specKeys)
+const specKeys = Object.keys(SPECIFICATION_LABELS)
 
 const diffsKeys = computed(() => {
   const result: string[] = []
@@ -71,28 +63,14 @@ const diffsKeys = computed(() => {
   return result
 })
 
-function getCheckIcon(value: boolean):string {
-  return value ? "/src/assets/img/GreenCheckmark.svg" : "/src/assets/img/RedCrossIcon.svg"
-}
-
-function formatValue(key: string, value: unknown): string {
-  if (key === "screenSize") return `${value}″`
-  if (key === "fps") return `${value} Гц`
-  if (key === "memorySize") return `${value} ГБ`
-  if (key === "price") return `${value} ₽`
-  return String(value)
-}
-
 onMounted(loadPhones)
-
 </script>
 
 <template>
   <MainHeader/>
-  <!-- SmartPhonesView -->
   <div class="smartphones-menu d-flex">
     <SmartphonesHeader
-        :sliced-phones="slicedCount"
+        :countsPhone="countsPhone"
         :current-count="itemOfPhone"
         @update-count="setItemsOfPhone"
     />
@@ -100,23 +78,17 @@ onMounted(loadPhones)
         :visiblePhones="visiblePhones"
         v-model:showOnlyDiffs=showOnlyDiffs
         :includesSpecKeys="includesSpecKeys"
-        :specificationLabels="specificationLabels"
-        :booleanSpecKeys="booleanSpecKeys"
-        :getCheckIcon="getCheckIcon"
-        :formatValue="formatValue"
+        :specificationLabels="SPECIFICATION_LABELS"
+        :booleanSpecKeys="BOOLEAN_SPEC_KEYS"
         :notShowedAllPhones="notShowedAllPhones"
+        :remaining-phones="remainingPhones"
     />
   </div>
 </template>
 
 <style scoped lang="scss">
-
 .smartphones-menu {
   padding: 20px 165px 0 165px;
   flex-direction: column;
 }
-
-
-
-
 </style>

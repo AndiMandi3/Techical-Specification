@@ -1,3 +1,13 @@
+<script setup lang="ts">
+import {getCheckIcon} from "../utils/phoneUtils.ts";
+
+defineProps<{
+  value: unknown
+  specKey: string
+  isBoolean: boolean
+}>()
+</script>
+
 <template>
   <div class="specifications-table__cell">
     <div class="specifications-table__cell-wrapper">
@@ -8,21 +18,13 @@
         />
       </template>
       <template v-else>
-        {{ formatValue(specKey, value) }}
+        {{ value }}
       </template>
     </div>
   </div>
 </template>
 
-<script setup lang="ts">
-defineProps<{
-  value: unknown
-  specKey: string
-  isBoolean: boolean
-  getCheckIcon: (value: boolean) => string
-  formatValue: (key: string, value: unknown) => string
-}>()
-</script>
+
 
 <style scoped lang="scss">
 .specifications-table {

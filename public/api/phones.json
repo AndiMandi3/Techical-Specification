@@ -5,14 +5,14 @@
     "img": "/api/phonesImg/iPhone12.png",
     "manufacture": "Apple",
     "release": 2020,
-    "screenSize": 6.1,
+    "screenSize":6.1,
     "country": "Китай",
-    "memorySize": 128,
-    "fps": 60,
+    "memorySize": "128 Гб",
+    "fps": "60 Гц",
     "nfc": false,
     "esim": true,
     "wirelessCharging": true,
-    "price": 81990
+    "price": "81990 ₽"
   },
   {
     "id": 2,
@@ -22,12 +22,12 @@
     "release": 2021,
     "screenSize": 6.55,
     "country": "Китай",
-    "memorySize": 128,
-    "fps": 90,
+    "memorySize": "128 Гб",
+    "fps": "90 Гц",
     "nfc": true,
     "esim": true,
     "wirelessCharging": false,
-    "price": 27490
+    "price": "27490 ₽"
   },
   {
     "id": 3,
@@ -37,12 +37,12 @@
     "release": 2021,
     "screenSize": 6.7,
     "country": "Вьетнам",
-    "memorySize": 128,
-    "fps": 90,
+    "memorySize": "128 Гб",
+    "fps": "90 Гц",
     "nfc": true,
     "esim": false,
     "wirelessCharging": true,
-    "price": 32890
+    "price": "32890 ₽"
   },
   {
     "id": 4,
@@ -52,12 +52,12 @@
     "release": 2021,
     "screenSize": 6.2,
     "country": "Вьетнам",
-    "memorySize": 128,
-    "fps": 120,
+    "memorySize": "128 Гб",
+    "fps": "120 Гц",
     "nfc": true,
     "esim": true,
     "wirelessCharging": true,
-    "price": 54990
+    "price": "54990 ₽"
   },
   {
     "id": 5,
@@ -67,12 +67,12 @@
     "release": 2018,
     "screenSize": 6.1,
     "country": "Китай",
-    "memorySize": 128,
-    "fps": 60,
+    "memorySize": "128 Гб",
+    "fps": "60 Гц",
     "nfc": false,
     "esim": false,
     "wirelessCharging": false,
-    "price": 81990
+    "price": "81990 ₽"
   },
   {
     "id": 6,
@@ -82,11 +82,11 @@
     "release": 2020,
     "screenSize": 6.4,
     "country": "Китай",
-    "memorySize": 128,
-    "fps": 60,
+    "memorySize": "128 Гб",
+    "fps": "60 Гц",
     "nfc": false,
     "esim": false,
     "wirelessCharging": false,
-    "price": 19990
+    "price": "19990 ₽"
   }
 ]

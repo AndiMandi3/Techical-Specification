@@ -1,3 +1,12 @@
+<script setup lang="ts">
+defineProps<{
+  countsPhone: number[]
+  currentCount: number
+}>()
+
+defineEmits(['update-count']);
+</script>
+
 <template>
   <div class="smartphones-menu__header">
     <h1 class="smartphones-menu__title gray">Смартфоны</h1>
@@ -5,29 +14,18 @@
       <span>Отобразить товары:</span>
       <div class="smartphones-menu__buttons">
         <button
-            v-for="phone in slicedPhones"
-            :key="phone.id"
-            @click="$emit('update-count', phone.id)"
+            v-for="count in countsPhone"
+            :key="count"
+            @click="$emit('update-count', count)"
             class="smartphones-menu__button-count blue"
-            :class="{'active': phone.id === currentCount}"
+            :class="{'active': count === currentCount}"
         >
-          {{ phone.id }}
+          {{ count }}
         </button>
       </div>
     </div>
   </div>
 </template>
-
-<script setup lang="ts">
-import type {phoneType} from "../types/phoneType.ts";
-
-defineProps<{
-  slicedPhones: phoneType[]
-  currentCount: number
-}>()
-
-defineEmits(['update-count']);
-</script>
 
 <style scoped lang="scss">
 .smartphones-menu {

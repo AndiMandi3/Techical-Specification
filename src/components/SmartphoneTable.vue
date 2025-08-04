@@ -1,3 +1,22 @@
+<script setup lang="ts">
+import type { phoneType } from "../types/phoneType.ts"
+import SmartphoneCard from "./SmartphoneCard.vue"
+import SpecCell from "./SpecCell.vue"
+
+defineProps<{
+  visiblePhones: phoneType[]
+  showOnlyDiffs: boolean
+  notShowedAllPhones: boolean
+  includesSpecKeys: string[]
+  specificationLabels: Record<string, string>
+  booleanSpecKeys: string[]
+  remainingPhones: phoneType[]
+}>()
+
+defineEmits(["update:showOnlyDiffs", "replace"]) //типизация эмитов
+
+</script>
+
 <template>
   <div
       class="specifications-table"
@@ -13,10 +32,11 @@
       <label for="specifications-table__checkbox-differents" class="blue">Показать различия</label>
     </div>
     <SmartphoneCard
-        v-for="phone in visiblePhones"
-        :key="'head-' + phone.id"
-        :phone="phone"
+        v-for="(phone, index) in visiblePhones"
+        :key="phone.id"
+        v-model="visiblePhones[index]"
         :show-switcher="notShowedAllPhones"
+        :remaining-phones="remainingPhones"
     />
     <template
         v-for="specKey in includesSpecKeys"
@@ -28,35 +48,14 @@
       </div>
       <SpecCell
           v-for="phone in visiblePhones"
-          :key="phone.id + '-' + specKey"
+          :key="phone.id"
           :value="phone[specKey]"
           :specKey="specKey"
           :isBoolean="booleanSpecKeys.includes(specKey)"
-          :getCheckIcon="getCheckIcon"
-          :formatValue="formatValue"
       />
     </template>
   </div>
 </template>
-
-<script setup lang="ts">
-import type {phoneType} from "../types/phoneType.ts";
-import SmartphoneCard from "./SmartphoneCard.vue";
-import SpecCell from "./SpecCell.vue";
-
-defineProps<{
-  visiblePhones: phoneType[]
-  showOnlyDiffs: boolean
-  notShowedAllPhones: boolean
-  includesSpecKeys: string[]
-  specificationLabels: Record<string, string>
-  booleanSpecKeys: string[]
-  getCheckIcon: (value: boolean) => string
-  formatValue: (key: string, value: unknown) => string
-}>()
-
-defineEmits(["update:showOnlyDiffs"])
-</script>
 
 <style scoped lang="scss">
 .specifications-table {

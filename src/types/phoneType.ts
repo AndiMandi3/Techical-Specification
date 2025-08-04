@@ -6,10 +6,10 @@ export type phoneType = {
     release: number,
     screenSize: number,
     country: string,
-    memorySize: number,
-    fps: number,
+    memorySize: string,
+    fps: string,
     nfc: boolean,
     esim: boolean,
     wirelessCharging: boolean,
-    price: number
+    price: string
 }
