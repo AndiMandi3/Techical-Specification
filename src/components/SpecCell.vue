@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {getCheckIcon} from "../utils/phoneUtils.ts";
+import { getCheckIcon } from "../utils/phoneUtils.ts";
 
 defineProps<{
   value: unknown

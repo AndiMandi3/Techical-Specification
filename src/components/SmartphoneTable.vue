@@ -1,20 +1,22 @@
 <script setup lang="ts">
+import {computed, ref} from "vue";
 import type { phoneType } from "../types/phoneType.ts"
 import SmartphoneCard from "./SmartphoneCard.vue"
 import SpecCell from "./SpecCell.vue"
+import { BOOLEAN_SPEC_KEYS } from "../consts/booleanSpecKeys";
 
-defineProps<{
+const { visiblePhones } = defineProps<{
   visiblePhones: phoneType[]
   showOnlyDiffs: boolean
-  notShowedAllPhones: boolean
   includesSpecKeys: string[]
   specificationLabels: Record<string, string>
-  booleanSpecKeys: string[]
   remainingPhones: phoneType[]
 }>()
 
-defineEmits(["update:showOnlyDiffs", "replace"]) //типизация эмитов
+const isNotShowedAllPhones = computed(() => visiblePhones.length < 6 )
 
+const showOnlyDiff = defineModel("showOnlyDiffs")
+const newVisiblePhones = ref(visiblePhones)
 </script>
 
 <template>
@@ -26,16 +28,15 @@ defineEmits(["update:showOnlyDiffs", "replace"]) //типизация эмито
       <input
           type="checkbox"
           name="specifications-table__differents-mobiles"
-          :checked="showOnlyDiffs"
-          @change="$emit('update:showOnlyDiffs', ($event.target as HTMLInputElement).checked)"
+          v-model="showOnlyDiff"
       >
       <label for="specifications-table__checkbox-differents" class="blue">Показать различия</label>
     </div>
     <SmartphoneCard
-        v-for="(phone, index) in visiblePhones"
-        :key="phone.id"
-        v-model="visiblePhones[index]"
-        :show-switcher="notShowedAllPhones"
+        v-for="(phone, index) in newVisiblePhones"
+        :key="phone.name"
+        v-model="newVisiblePhones[index]"
+        :show-switcher="isNotShowedAllPhones"
         :remaining-phones="remainingPhones"
     />
     <template
@@ -47,11 +48,11 @@ defineEmits(["update:showOnlyDiffs", "replace"]) //типизация эмито
         {{ specificationLabels[specKey] }}
       </div>
       <SpecCell
-          v-for="phone in visiblePhones"
+          v-for="phone in newVisiblePhones"
           :key="phone.id"
           :value="phone[specKey]"
           :specKey="specKey"
-          :isBoolean="booleanSpecKeys.includes(specKey)"
+          :isBoolean="BOOLEAN_SPEC_KEYS.includes(specKey)"
       />
     </template>
   </div>
@@ -79,6 +80,7 @@ defineEmits(["update:showOnlyDiffs", "replace"]) //типизация эмито
 
     &.is-header {
       font-weight: 600;
+      border: none;
       background: white;
     }
 

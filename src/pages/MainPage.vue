@@ -3,8 +3,6 @@ import MainHeader from "../components/MainHeader.vue"
 import SmartphonesHeader from "../components/SmartphonesHeader.vue"
 import SmartphoneTable from "../components/SmartphoneTable.vue"
 import { SPECIFICATION_LABELS } from "../consts/specificationLabels"
-import { BOOLEAN_SPEC_KEYS } from "../consts/booleanSpecKeys"
-
 
 import { onMounted, ref, computed } from "vue"
 import type { phoneType } from "../types/phoneType.ts"
@@ -22,8 +20,6 @@ const includesSpecKeys = computed(() => {
   if (!showOnlyDiffs.value) return specKeys
   return specKeys.filter(key => diffsKeys.value.includes(key))
 })
-
-const notShowedAllPhones = computed(() => itemOfPhone.value < 6 )
 
 function setItemsOfPhone(count: number): void {
   itemOfPhone.value = count
@@ -75,12 +71,11 @@ onMounted(loadPhones)
         @update-count="setItemsOfPhone"
     />
     <SmartphoneTable
+        v-if="phones.length"
+        v-model:show-only-diffs="showOnlyDiffs"
         :visiblePhones="visiblePhones"
-        v-model:showOnlyDiffs=showOnlyDiffs
         :includesSpecKeys="includesSpecKeys"
         :specificationLabels="SPECIFICATION_LABELS"
-        :booleanSpecKeys="BOOLEAN_SPEC_KEYS"
-        :notShowedAllPhones="notShowedAllPhones"
         :remaining-phones="remainingPhones"
     />
   </div>
